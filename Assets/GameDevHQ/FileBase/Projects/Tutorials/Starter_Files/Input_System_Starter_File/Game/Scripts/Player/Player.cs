@@ -22,17 +22,19 @@ namespace Game.Scripts.Player
         [SerializeField]
         private GameObject _model;
 
+        private Vector2 _move;
 
         private void OnEnable()
         {
-            InteractableZone.onZoneInteractionComplete += InteractableZone_onZoneInteractionComplete;
-            Laptop.onHackComplete += ReleasePlayerControl;
+			InteractableZone.onZoneInteractionComplete += InteractableZone_onZoneInteractionComplete;
+			Laptop.onHackComplete += ReleasePlayerControl;
             Laptop.onHackEnded += ReturnPlayerControl;
-            Forklift.onDriveModeEntered += ReleasePlayerControl;
-            Forklift.onDriveModeExited += ReturnPlayerControl;
-            Forklift.onDriveModeEntered += HidePlayer;
-            Drone.OnEnterFlightMode += ReleasePlayerControl;
-            Drone.onExitFlightmode += ReturnPlayerControl;
+			Forklift.onDriveModeEntered += ReleasePlayerControl;
+			Forklift.onDriveModeExited += ReturnPlayerControl;
+			Forklift.onDriveModeEntered += HidePlayer;
+			Drone.OnEnterFlightMode += ReleasePlayerControl;
+			Drone.onExitFlightmode += ReturnPlayerControl;
+			GameInputManager.OnPlayerMove += PlayerMoves;
         } 
 
         private void Start()
@@ -51,16 +53,23 @@ namespace Game.Scripts.Player
         private void Update()
         {
             if (_canMove == true)
-                CalcutateMovement();
+				CalcutateMovement();
+		}
 
-        }
+		private void PlayerMoves(Vector2 move)
+		{
+            _move = move;
+		}
 
-        private void CalcutateMovement()
+		private void CalcutateMovement()
         {
 			_playerGrounded = _controller.isGrounded;
 			/*float h = Input.GetAxisRaw("Horizontal");
 			float v = Input.GetAxisRaw("Vertical");
+            */
 
+			float h = _move.x;
+			float v = _move.y;
 			transform.Rotate(transform.up, h);
 
 			var direction = transform.forward * v;
@@ -77,7 +86,7 @@ namespace Game.Scripts.Player
                 velocity.y += -20f * Time.deltaTime;
             }
             
-            _controller.Move(velocity * Time.deltaTime);    */
+            _controller.Move(velocity * Time.deltaTime);    
 
 		}
 
