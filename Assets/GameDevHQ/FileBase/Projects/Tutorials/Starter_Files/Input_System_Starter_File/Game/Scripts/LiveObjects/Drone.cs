@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Cinemachine;
 using Game.Scripts.UI;
+using UnityEngine.InputSystem;
 
 namespace Game.Scripts.LiveObjects
 {
@@ -21,12 +22,45 @@ namespace Game.Scripts.LiveObjects
 		[SerializeField] private CinemachineVirtualCamera _droneCam;
 		[SerializeField] private InteractableZone _interactableZone;
 
+		private Vector2 _tilt;
+
 		public static event Action OnEnterFlightMode;
 		public static event Action onExitFlightmode;
 
 		private void OnEnable()
 		{
 			InteractableZone.onZoneInteractionComplete += EnterFlightMode;
+			GameInputManager.OnDroneRotation += CalculateMovementUpdate;
+			GameInputManager.OnTiltDrone += TiltValues;
+			GameInputManager.OnSpaceKeyDronePressed += CalculateMoveFXUpdateSpaceKey;
+			GameInputManager.OnVKeyDronePressed += CalculateMoveFXUpdateVKey;
+		}
+
+		private void Update()
+		{
+			if (_inFlightMode)
+			{
+				CalculateTilt();
+
+				if (Keyboard.current.escapeKey.wasPressedThisFrame)
+				{
+					_inFlightMode = false;
+					onExitFlightmode?.Invoke();
+					ExitFlightMode();
+				}
+			}
+		}
+
+		private void FixedUpdate()
+		{
+			_rigidbody.AddForce(transform.up * (9.81f), ForceMode.Acceleration);
+		}
+
+		private void ExitFlightMode()
+		{
+			_droneCam.Priority = 9;
+			_inFlightMode = false;
+			UIManager.Instance.DroneView(false);
 		}
 
 		private void EnterFlightMode(InteractableZone zone)
@@ -42,45 +76,15 @@ namespace Game.Scripts.LiveObjects
 			}
 		}
 
-		private void ExitFlightMode()
+		private void CalculateMovementUpdate(float rot)
 		{
-			_droneCam.Priority = 9;
-			_inFlightMode = false;
-			UIManager.Instance.DroneView(false);
-		}
-
-		private void Update()
-		{
-			if (_inFlightMode)
-			{
-				CalculateTilt();
-				CalculateMovementUpdate();
-
-				if (Input.GetKeyDown(KeyCode.Escape))
-				{
-					_inFlightMode = false;
-					onExitFlightmode?.Invoke();
-					ExitFlightMode();
-				}
-			}
-		}
-
-		private void FixedUpdate()
-		{
-			_rigidbody.AddForce(transform.up * (9.81f), ForceMode.Acceleration);
-			if (_inFlightMode)
-				CalculateMovementFixedUpdate();
-		}
-
-		private void CalculateMovementUpdate()
-		{
-			if (Input.GetKey(KeyCode.LeftArrow))
+			if (rot < 0)
 			{
 				var tempRot = transform.localRotation.eulerAngles;
 				tempRot.y -= _speed / 3;
 				transform.localRotation = Quaternion.Euler(tempRot);
 			}
-			if (Input.GetKey(KeyCode.RightArrow))
+			if (rot > 0)
 			{
 				var tempRot = transform.localRotation.eulerAngles;
 				tempRot.y += _speed / 3;
@@ -88,28 +92,36 @@ namespace Game.Scripts.LiveObjects
 			}
 		}
 
-		private void CalculateMovementFixedUpdate()
+		private void CalculateMoveFXUpdateSpaceKey()
 		{
-
-			if (Input.GetKey(KeyCode.Space))
+			if (_inFlightMode)
 			{
 				_rigidbody.AddForce(transform.up * _speed, ForceMode.Acceleration);
 			}
-			if (Input.GetKey(KeyCode.V))
+		}
+
+		private void CalculateMoveFXUpdateVKey()
+		{
+			if (_inFlightMode)
 			{
 				_rigidbody.AddForce(-transform.up * _speed, ForceMode.Acceleration);
 			}
 		}
 
+		private void TiltValues(Vector2 tilt)
+		{
+			_tilt = tilt;
+		}
+
 		private void CalculateTilt()
 		{
-			if (Input.GetKey(KeyCode.A))
+			if (_tilt.x < 0)
 				transform.rotation = Quaternion.Euler(00, transform.localRotation.eulerAngles.y, 30);
-			else if (Input.GetKey(KeyCode.D))
+			else if (_tilt.x > 0)
 				transform.rotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y, -30);
-			else if (Input.GetKey(KeyCode.W))
+			else if (_tilt.y > 0)
 				transform.rotation = Quaternion.Euler(30, transform.localRotation.eulerAngles.y, 0);
-			else if (Input.GetKey(KeyCode.S))
+			else if (_tilt.y < 0)
 				transform.rotation = Quaternion.Euler(-30, transform.localRotation.eulerAngles.y, 0);
 			else
 				transform.rotation = Quaternion.Euler(0, transform.localRotation.eulerAngles.y, 0);
@@ -118,6 +130,10 @@ namespace Game.Scripts.LiveObjects
 		private void OnDisable()
 		{
 			InteractableZone.onZoneInteractionComplete -= EnterFlightMode;
+			GameInputManager.OnDroneRotation -= CalculateMovementUpdate;
+			GameInputManager.OnTiltDrone -= TiltValues;
+			GameInputManager.OnSpaceKeyDronePressed -= CalculateMoveFXUpdateSpaceKey;
+			GameInputManager.OnVKeyDronePressed -= CalculateMoveFXUpdateVKey;
 		}
 	}
 }
