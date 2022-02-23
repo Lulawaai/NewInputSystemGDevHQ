@@ -149,6 +149,54 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""General"",
+            ""id"": ""13b073fd-5bfe-4350-a9c9-0f1fd3188834"",
+            ""actions"": [
+                {
+                    ""name"": ""Ekey"",
+                    ""type"": ""Button"",
+                    ""id"": ""5ac3d3cf-49f4-45e4-8825-3991f2b3c0c0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Esckey"",
+                    ""type"": ""Button"",
+                    ""id"": ""87d35050-f8ac-4235-b1cf-b69f2adb537a"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""2dc9fa6d-f1d6-4f14-8d6c-8f3f7f1fde34"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": ""Hold(duration=10,pressPoint=1)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Ekey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85277c60-542a-416d-80c6-975ae1da0240"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": ""Hold(duration=10)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Esckey"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -156,6 +204,10 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         // PlayerInput
         m_PlayerInput = asset.FindActionMap("PlayerInput", throwIfNotFound: true);
         m_PlayerInput_Move = m_PlayerInput.FindAction("Move", throwIfNotFound: true);
+        // General
+        m_General = asset.FindActionMap("General", throwIfNotFound: true);
+        m_General_Ekey = m_General.FindAction("Ekey", throwIfNotFound: true);
+        m_General_Esckey = m_General.FindAction("Esckey", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -244,8 +296,54 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         }
     }
     public PlayerInputActions @PlayerInput => new PlayerInputActions(this);
+
+    // General
+    private readonly InputActionMap m_General;
+    private IGeneralActions m_GeneralActionsCallbackInterface;
+    private readonly InputAction m_General_Ekey;
+    private readonly InputAction m_General_Esckey;
+    public struct GeneralActions
+    {
+        private @GameInputActions m_Wrapper;
+        public GeneralActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Ekey => m_Wrapper.m_General_Ekey;
+        public InputAction @Esckey => m_Wrapper.m_General_Esckey;
+        public InputActionMap Get() { return m_Wrapper.m_General; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(GeneralActions set) { return set.Get(); }
+        public void SetCallbacks(IGeneralActions instance)
+        {
+            if (m_Wrapper.m_GeneralActionsCallbackInterface != null)
+            {
+                @Ekey.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEkey;
+                @Ekey.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEkey;
+                @Ekey.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEkey;
+                @Esckey.started -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEsckey;
+                @Esckey.performed -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEsckey;
+                @Esckey.canceled -= m_Wrapper.m_GeneralActionsCallbackInterface.OnEsckey;
+            }
+            m_Wrapper.m_GeneralActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Ekey.started += instance.OnEkey;
+                @Ekey.performed += instance.OnEkey;
+                @Ekey.canceled += instance.OnEkey;
+                @Esckey.started += instance.OnEsckey;
+                @Esckey.performed += instance.OnEsckey;
+                @Esckey.canceled += instance.OnEsckey;
+            }
+        }
+    }
+    public GeneralActions @General => new GeneralActions(this);
     public interface IPlayerInputActions
     {
         void OnMove(InputAction.CallbackContext context);
+    }
+    public interface IGeneralActions
+    {
+        void OnEkey(InputAction.CallbackContext context);
+        void OnEsckey(InputAction.CallbackContext context);
     }
 }

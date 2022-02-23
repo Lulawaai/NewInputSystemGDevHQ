@@ -10,21 +10,21 @@ namespace Game.Scripts.LiveObjects
     {
         private void OnEnable()
         {
-            InteractableZone.onZoneInteractionComplete += InteractableZone_onZoneInteractionComplete;
-        }
+			InteractableZone.onZoneInteractionComplete += InteractableZone_onZoneInteractionComplete;
+		}
 
-        private void InteractableZone_onZoneInteractionComplete(InteractableZone zone)
-        {
-            if (zone.GetZoneID() == 7)
-            {
-                InteractableZone.CurrentZoneID = 0;
-                SceneManager.LoadScene(0);
-            }
-        }
+		private void InteractableZone_onZoneInteractionComplete(InteractableZone zone)
+		{
+			if (zone.GetZoneID() == 7)
+			{
+				InteractableZone.CurrentZoneID = 0;
+				SceneManager.LoadScene(0);
+			}
+		}
 
-        private void OnDisable()
-        {
-            InteractableZone.onZoneInteractionComplete -= InteractableZone_onZoneInteractionComplete;
-        }
-    }
+		private void OnDisable()
+		{
+			InteractableZone.onZoneInteractionComplete -= InteractableZone_onZoneInteractionComplete;
+		}
+	}
 }

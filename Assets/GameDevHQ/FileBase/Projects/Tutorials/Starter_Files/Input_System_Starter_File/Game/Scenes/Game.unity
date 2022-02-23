@@ -586,7 +586,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5234913521985193789, guid: d65c798ada92d4e81a896301d3a7aa8f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6422916411053558087, guid: d65c798ada92d4e81a896301d3a7aa8f, type: 3}
       propertyPath: m_RenderMode
@@ -2888,6 +2888,7 @@ MonoBehaviour:
   _zoneItems: []
   _inventoryIcon: {fileID: 21300000, guid: 88841726d7ebbfc46bf799ee1bfb7d3f, type: 3}
   _zoneKeyInput: 101
+  _keyCodeInput: 0
   _keyState: 0
   _marker: {fileID: 1808342870}
 --- !u!1001 &198573547
@@ -4088,7 +4089,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &260636076
 Transform:
   m_ObjectHideFlags: 0
@@ -5266,6 +5267,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _speed: 5
+  _rotSpeed: 60
   _detonator: {fileID: 2496590969500232579}
   _followCam: {fileID: 1266060213}
   _model: {fileID: 852618543}
@@ -7547,6 +7549,7 @@ MonoBehaviour:
   - {fileID: 758722189}
   _inventoryIcon: {fileID: 21300000, guid: 8e46bcb2f14d4d144b9e4a395b47efa2, type: 3}
   _zoneKeyInput: 101
+  _keyCodeInput: 0
   _keyState: 0
   _marker: {fileID: 605505802}
 --- !u!4 &482471386 stripped
@@ -8710,6 +8713,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Taxi
       objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: f64e0c2ce45bd4635b99731a2d590520, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f64e0c2ce45bd4635b99731a2d590520, type: 3}
 --- !u!4 &551664192 stripped
@@ -9249,7 +9256,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5098578218743658244, guid: 1d553f90302742946bbf45996165949c, type: 3}
       propertyPath: m_Size.z
-      value: 7.208552
+      value: 3.0485868
       objectReference: {fileID: 0}
     - target: {fileID: 5098578218743658244, guid: 1d553f90302742946bbf45996165949c, type: 3}
       propertyPath: m_Center.x
@@ -9261,7 +9268,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5098578218743658244, guid: 1d553f90302742946bbf45996165949c, type: 3}
       propertyPath: m_Center.z
-      value: -0.452605
+      value: -0.49378538
       objectReference: {fileID: 0}
     - target: {fileID: 5098578218743658244, guid: 1d553f90302742946bbf45996165949c, type: 3}
       propertyPath: m_IsTrigger
@@ -9342,6 +9349,7 @@ MonoBehaviour:
   _zoneItems: []
   _inventoryIcon: {fileID: 21300000, guid: 88841726d7ebbfc46bf799ee1bfb7d3f, type: 3}
   _zoneKeyInput: 32
+  _keyCodeInput: 1
   _keyState: 0
   _marker: {fileID: 1331263896}
 --- !u!1001 &565131287
@@ -13322,6 +13330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _progressBar: {fileID: 2107796545}
   _hackTime: 5
+  _hacked: 0
   _cameras:
   - {fileID: 1329677325}
   - {fileID: 702883517}
@@ -15789,6 +15798,7 @@ MonoBehaviour:
   _zoneItems: []
   _inventoryIcon: {fileID: 0}
   _zoneKeyInput: 101
+  _keyCodeInput: 0
   _keyState: 0
   _marker: {fileID: 1578479318}
 --- !u!1 &967188505
@@ -21739,6 +21749,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Interactable_C4_Pickup_Zone
       objectReference: {fileID: 0}
+    - target: {fileID: 1499452540912398508, guid: 1d553f90302742946bbf45996165949c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5098578218743658244, guid: 1d553f90302742946bbf45996165949c, type: 3}
       propertyPath: m_Size.x
       value: 1.0762239
@@ -21844,6 +21858,7 @@ MonoBehaviour:
   - {fileID: 908574055}
   _inventoryIcon: {fileID: 21300000, guid: 81dff3a1ca824714aae965897edd2351, type: 3}
   _zoneKeyInput: 101
+  _keyCodeInput: 0
   _keyState: 0
   _marker: {fileID: 1583429342}
 --- !u!1001 &1178759240
@@ -22376,6 +22391,10 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 1bf7bcc5990354d789d1b87e24f22665, type: 3}
       propertyPath: m_Name
       value: C4
+      objectReference: {fileID: 0}
+    - target: {fileID: -927199367670048503, guid: 1bf7bcc5990354d789d1b87e24f22665, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1bf7bcc5990354d789d1b87e24f22665, type: 3}
@@ -23037,6 +23056,7 @@ MonoBehaviour:
   _zoneItems: []
   _inventoryIcon: {fileID: 21300000, guid: 88841726d7ebbfc46bf799ee1bfb7d3f, type: 3}
   _zoneKeyInput: 101
+  _keyCodeInput: 0
   _keyState: 0
   _marker: {fileID: 1840441541}
 --- !u!4 &1277958657 stripped
@@ -31214,6 +31234,7 @@ MonoBehaviour:
   _zoneItems: []
   _inventoryIcon: {fileID: 0}
   _zoneKeyInput: 101
+  _keyCodeInput: 0
   _keyState: 0
   _marker: {fileID: 1041737524}
 --- !u!1001 &1810757429
@@ -32474,7 +32495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1892110239
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32501,7 +32522,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1892110238}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
   m_Name: 
@@ -32821,7 +32842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1918118684
 Transform:
   m_ObjectHideFlags: 0
@@ -34436,6 +34457,7 @@ MonoBehaviour:
   _zoneItems: []
   _inventoryIcon: {fileID: 0}
   _zoneKeyInput: 101
+  _keyCodeInput: 0
   _keyState: 1
   _marker: {fileID: 55150249}
 --- !u!4 &2030128479 stripped
@@ -35262,7 +35284,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -22.7266, y: -339.8598}
+  m_AnchoredPosition: {x: -22.7266, y: -222.9}
   m_SizeDelta: {x: 765.6395, y: 118.2805}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2107796545

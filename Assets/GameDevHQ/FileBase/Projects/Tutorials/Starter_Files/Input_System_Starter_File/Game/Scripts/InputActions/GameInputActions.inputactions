@@ -127,6 +127,54 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "General",
+            "id": "13b073fd-5bfe-4350-a9c9-0f1fd3188834",
+            "actions": [
+                {
+                    "name": "Ekey",
+                    "type": "Button",
+                    "id": "5ac3d3cf-49f4-45e4-8825-3991f2b3c0c0",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Esckey",
+                    "type": "Button",
+                    "id": "87d35050-f8ac-4235-b1cf-b69f2adb537a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2dc9fa6d-f1d6-4f14-8d6c-8f3f7f1fde34",
+                    "path": "<Keyboard>/e",
+                    "interactions": "Hold(duration=10,pressPoint=1)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ekey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "85277c60-542a-416d-80c6-975ae1da0240",
+                    "path": "<Keyboard>/z",
+                    "interactions": "Hold(duration=10)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Esckey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
