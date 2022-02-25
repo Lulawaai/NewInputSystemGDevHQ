@@ -25,9 +25,41 @@ namespace Game.Scripts.UI
 		[SerializeField] private Image _inventoryDisplay;
 		[SerializeField] private RawImage _droneCamView;
 
+		[Header("InputSelection")]
+		[SerializeField] private GameObject _playerInpSelection;
+		[SerializeField] private GameObject _droneInpSelection;
+		[SerializeField] private GameObject _forkliftInpSelection;
+		[SerializeField] private int _inputSelected;
+
 		private void Awake()
 		{
 			_instance = this;
+		}
+
+		public void SelectedInput(int selection)
+		{
+			_inputSelected = selection;
+
+			switch (_inputSelected)
+			{
+				case 0:
+					_playerInpSelection.SetActive(true);
+					_droneInpSelection.SetActive(false);
+					_forkliftInpSelection.SetActive(false);
+					break;
+
+				case 1:
+					_playerInpSelection.SetActive(false);
+					_droneInpSelection.SetActive(true);
+					_forkliftInpSelection.SetActive(false);
+					break;
+
+				case 2:
+					_playerInpSelection.SetActive(false);
+					_droneInpSelection.SetActive(false);
+					_forkliftInpSelection.SetActive(true);
+					break;
+			}
 		}
 
 		public void DisplayInteractableZoneMessage(bool showMessage, string message = null)

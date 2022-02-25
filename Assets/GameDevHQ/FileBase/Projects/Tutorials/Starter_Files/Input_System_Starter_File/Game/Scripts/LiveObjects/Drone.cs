@@ -34,6 +34,7 @@ namespace Game.Scripts.LiveObjects
 			GameInputManager.OnTiltDrone += TiltValues;
 			GameInputManager.OnSpaceKeyDronePressed += CalculateMoveFXUpdateSpaceKey;
 			GameInputManager.OnVKeyDronePressed += CalculateMoveFXUpdateVKey;
+			GameInputManager.OnDroneModeFinshed += EscDroneMode;
 		}
 
 		private void Update()
@@ -42,13 +43,20 @@ namespace Game.Scripts.LiveObjects
 			{
 				CalculateTilt();
 
-				if (Keyboard.current.escapeKey.wasPressedThisFrame)
+				/*if (Keyboard.current.escapeKey.wasPressedThisFrame)
 				{
 					_inFlightMode = false;
 					onExitFlightmode?.Invoke();
 					ExitFlightMode();
-				}
+				}*/
 			}
+		}
+
+		private void EscDroneMode()
+		{
+			_inFlightMode = false;
+			onExitFlightmode?.Invoke();
+			ExitFlightMode();
 		}
 
 		private void FixedUpdate()
@@ -134,6 +142,7 @@ namespace Game.Scripts.LiveObjects
 			GameInputManager.OnTiltDrone -= TiltValues;
 			GameInputManager.OnSpaceKeyDronePressed -= CalculateMoveFXUpdateSpaceKey;
 			GameInputManager.OnVKeyDronePressed -= CalculateMoveFXUpdateVKey;
+			GameInputManager.OnDroneModeFinshed -= EscDroneMode;
 		}
 	}
 }

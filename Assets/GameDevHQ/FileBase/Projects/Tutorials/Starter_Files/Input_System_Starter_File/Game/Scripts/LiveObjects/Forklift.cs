@@ -12,6 +12,8 @@ namespace Game.Scripts.LiveObjects
 		[SerializeField] private CinemachineVirtualCamera _forkliftCam;
 		[SerializeField] private GameObject _driverModel;
 
+		private Vector2 _move;
+
 		private bool _inDriveMode = false;
 
 		[SerializeField] private InteractableZone _interactableZone;
@@ -22,6 +24,9 @@ namespace Game.Scripts.LiveObjects
 		private void OnEnable()
 		{
 			InteractableZone.onZoneInteractionComplete += EnterDriveMode;
+			GameInputManager.OnForkliftMove += Move;
+			GameInputManager.OnForkliftUp += LiftUPRoutineCall;
+			GameInputManager.OnForkliftDown += LiftDownRoutineCall;
 		}
 
 		private void EnterDriveMode(InteractableZone zone)
@@ -48,17 +53,22 @@ namespace Game.Scripts.LiveObjects
 		{
 			if (_inDriveMode == true)
 			{
-				LiftControls();
+				//LiftControls();
 				CalcutateMovement();
 				if (Input.GetKeyDown(KeyCode.Escape))
 					ExitDriveMode();
 			}
 		}
 
+		private void Move(Vector2 move)
+		{
+			_move = move;
+		}
+
 		private void CalcutateMovement()
 		{
-			float h = Input.GetAxisRaw("Horizontal");
-			float v = Input.GetAxisRaw("Vertical");
+			float h = _move.x;
+			float v = _move.y;
 			var direction = new Vector3(0, 0, v);
 			var velocity = direction * _speed;
 
@@ -78,6 +88,22 @@ namespace Game.Scripts.LiveObjects
 				LiftUpRoutine();
 			else if (Input.GetKey(KeyCode.T))
 				LiftDownRoutine();
+		}
+
+		private void LiftUPRoutineCall()
+		{
+			if (_inDriveMode)
+			{
+				LiftUpRoutine();
+			}
+		}
+
+		private void LiftDownRoutineCall()
+		{
+			if (_inDriveMode)
+			{
+				LiftDownRoutine();
+			}
 		}
 
 		private void LiftUpRoutine()
@@ -107,6 +133,9 @@ namespace Game.Scripts.LiveObjects
 		private void OnDisable()
 		{
 			InteractableZone.onZoneInteractionComplete -= EnterDriveMode;
+			GameInputManager.OnForkliftMove -= Move;
+			GameInputManager.OnForkliftUp -= LiftUPRoutineCall;
+			GameInputManager.OnForkliftDown -= LiftDownRoutineCall;
 		}
 	}
 }

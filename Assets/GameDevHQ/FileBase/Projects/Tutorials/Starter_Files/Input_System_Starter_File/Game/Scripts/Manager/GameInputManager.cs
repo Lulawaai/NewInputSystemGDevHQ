@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Game.Scripts.UI;
 
 public class GameInputManager : MonoBehaviour
 {
@@ -11,16 +12,24 @@ public class GameInputManager : MonoBehaviour
 	public static event Action OnInteractableKeyE;
 	public static event Action OnHoldKey;
 	public static event Action OnHoldFinished;
+	//Drone
 	public static event Action<float> OnDroneRotation;
 	public static event Action OnSpaceKeyDronePressed;
 	public static event Action OnVKeyDronePressed;
 	public static event Action<Vector2> OnTiltDrone;
+	public static event Action<Vector2> OnForkliftMove;
+	public static event Action OnDroneModeFinshed;
+
+	//Forklift
+	public static event Action OnForkliftUp;
+	public static event Action OnForkliftDown;
 
 	void Start()
 	{
 		_input = new GameInputActions();
 		_input.Enable();
 		_input.Drone.Disable();
+		_input.Forklift.Disable();
 
 		_input.General.Ekey.performed += InteractableArea_performed;
 		_input.General.Ekey.started += InteractableArea_started;
@@ -28,13 +37,38 @@ public class GameInputManager : MonoBehaviour
 
 		_input.PlayerInput.SwitchToDrone.performed += SwitchToDrone_performed;
 
-		_input.Drone.SwitchToPlayer.performed += SwitchToPlayer_performed;
+		_input.Drone.SwitchToForklift.performed += SwitchToForklift_performed;
 		_input.Drone.SpaceKey.performed += SpaceKey_performed;
 		_input.Drone.VKey.performed += VKey_performed;
-		
+		_input.Drone.EscKey.performed += EscKey_performed;
+
+		_input.Forklift.SwitchToPlayer.performed += SwitchToPlayer_performed;
+		_input.Forklift.LiftUp.performed += LiftUp_performed;
+		_input.Forklift.LiftDown.performed += LiftDown_performed;
 	}
 
-	#region //Input Events
+	#region //Forklift
+	private void LiftDown_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		OnForkliftDown?.Invoke();
+	}
+
+	private void LiftUp_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		OnForkliftUp?.Invoke();
+	}
+
+	private void SwitchToPlayer_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		_input.PlayerInput.Enable();
+		_input.Drone.Disable();
+		_input.Forklift.Disable();
+
+		UIManager.Instance.SelectedInput(0);
+	}
+	#endregion
+
+	#region //Drone
 	private void VKey_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
 		OnVKeyDronePressed?.Invoke();
@@ -45,18 +79,33 @@ public class GameInputManager : MonoBehaviour
 		OnSpaceKeyDronePressed?.Invoke();
 	}
 
-	private void SwitchToPlayer_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	private void SwitchToForklift_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
-		_input.PlayerInput.Enable();
+		_input.PlayerInput.Disable();
 		_input.Drone.Disable();
+		_input.Forklift.Enable();
+
+		UIManager.Instance.SelectedInput(2);
 	}
 
+	private void EscKey_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		OnDroneModeFinshed?.Invoke();
+	}
+	#endregion
+
+	#region //Player
 	private void SwitchToDrone_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
 		_input.PlayerInput.Disable();
 		_input.Drone.Enable();
-	}
+		_input.Forklift.Disable();
 
+		UIManager.Instance.SelectedInput(1);
+	}
+	#endregion
+
+	#region //Interactable Area
 	private void InteractableArea_started(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
 		OnHoldKey?.Invoke();
@@ -78,6 +127,7 @@ public class GameInputManager : MonoBehaviour
 		PlayerMove();
 		DroneRotation();
 		DroneTilt();
+		ForkliftMove();
     }
 
 	private void PlayerMove()
@@ -103,5 +153,13 @@ public class GameInputManager : MonoBehaviour
 		tilt = _input.Drone.Tilt.ReadValue<Vector2>();
 
 		OnTiltDrone?.Invoke(tilt);
+	}
+
+	private void ForkliftMove()
+	{
+		Vector2 move;
+		move = _input.Forklift.Move.ReadValue<Vector2>();
+
+		OnForkliftMove?.Invoke(move);
 	}
 }
