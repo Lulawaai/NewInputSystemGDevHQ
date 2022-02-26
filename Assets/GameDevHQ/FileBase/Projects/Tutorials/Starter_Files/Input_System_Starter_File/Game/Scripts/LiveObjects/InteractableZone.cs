@@ -91,6 +91,7 @@ namespace Game.Scripts.LiveObjects
 					case ZoneType.Action:
 						if (_actionPerformed == false)
 						{
+							Debug.Log("InZone " + _currentZoneID);
 							_inZone = true;
 							if (_displayMessage != null)
 							{
@@ -106,7 +107,6 @@ namespace Game.Scripts.LiveObjects
 						_inZone = true;
 						if (_displayMessage != null)
 						{
-							Debug.Log("zonetype holdActio::  " + _displayMessage.ToString());
 							string message = $"Press the {_zoneKeyInput.ToString()} key to {_displayMessage}.";
 							UIManager.Instance.DisplayInteractableZoneMessage(true, message);
 						}

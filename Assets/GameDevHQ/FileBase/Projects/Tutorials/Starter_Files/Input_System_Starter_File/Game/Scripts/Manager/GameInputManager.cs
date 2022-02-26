@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using Game.Scripts.UI;
+using Game.Scripts.LiveObjects;
 
 public class GameInputManager : MonoBehaviour
 {
@@ -24,12 +25,23 @@ public class GameInputManager : MonoBehaviour
 	public static event Action OnForkliftUp;
 	public static event Action OnForkliftDown;
 
+	//Crate
+	[SerializeField] private bool _crateExploded = false;
+	private int _tabOrHold;
+	[SerializeField] private Crate _crate;
+
+	private void OnEnable()
+	{
+		
+	}
+
 	void Start()
 	{
 		_input = new GameInputActions();
 		_input.Enable();
 		_input.Drone.Disable();
 		_input.Forklift.Disable();
+		_input.Crate.Disable();
 
 		_input.General.Ekey.performed += InteractableArea_performed;
 		_input.General.Ekey.started += InteractableArea_started;
@@ -45,6 +57,33 @@ public class GameInputManager : MonoBehaviour
 		_input.Forklift.SwitchToPlayer.performed += SwitchToPlayer_performed;
 		_input.Forklift.LiftUp.performed += LiftUp_performed;
 		_input.Forklift.LiftDown.performed += LiftDown_performed;
+
+		_input.Crate.Explode.performed += Explode_performed;
+		_input.Crate.Explode.canceled += Explode_canceled;
+	}
+
+	private void Explode_canceled(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		_crateExploded = _crate.CrateExploded();
+
+		if (_crateExploded == false && context.duration >= 1.0f)
+		{
+			Debug.Log("Explded cancelled:: hold:::");
+			_tabOrHold = 1;
+		
+			_crate.TabCrate(_tabOrHold);
+		}
+	}
+
+	private void Explode_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		_crateExploded = _crate.CrateExploded();
+		if (_crateExploded == false)
+		{
+			Debug.Log("Explded Peformed:: tab:::");
+			_tabOrHold = 0;
+			_crate.TabCrate(_tabOrHold);
+		}
 	}
 
 	#region //Forklift

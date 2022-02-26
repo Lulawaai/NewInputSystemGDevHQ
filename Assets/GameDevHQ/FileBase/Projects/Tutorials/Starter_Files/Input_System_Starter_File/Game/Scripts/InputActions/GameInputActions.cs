@@ -598,6 +598,34 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""Crate"",
+            ""id"": ""806dd682-92d1-4aad-98ef-76de67a1595b"",
+            ""actions"": [
+                {
+                    ""name"": ""Explode"",
+                    ""type"": ""Button"",
+                    ""id"": ""cfbaf1f5-fdcc-49b3-abbb-e6629625bd56"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""21739bb1-af39-4e93-b02a-63a876005dce"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": ""MultiTap,Hold(duration=10)"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Explode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -624,6 +652,9 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         m_Forklift_Move = m_Forklift.FindAction("Move", throwIfNotFound: true);
         m_Forklift_LiftUp = m_Forklift.FindAction("LiftUp", throwIfNotFound: true);
         m_Forklift_LiftDown = m_Forklift.FindAction("LiftDown", throwIfNotFound: true);
+        // Crate
+        m_Crate = asset.FindActionMap("Crate", throwIfNotFound: true);
+        m_Crate_Explode = m_Crate.FindAction("Explode", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -891,6 +922,39 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         }
     }
     public ForkliftActions @Forklift => new ForkliftActions(this);
+
+    // Crate
+    private readonly InputActionMap m_Crate;
+    private ICrateActions m_CrateActionsCallbackInterface;
+    private readonly InputAction m_Crate_Explode;
+    public struct CrateActions
+    {
+        private @GameInputActions m_Wrapper;
+        public CrateActions(@GameInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Explode => m_Wrapper.m_Crate_Explode;
+        public InputActionMap Get() { return m_Wrapper.m_Crate; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CrateActions set) { return set.Get(); }
+        public void SetCallbacks(ICrateActions instance)
+        {
+            if (m_Wrapper.m_CrateActionsCallbackInterface != null)
+            {
+                @Explode.started -= m_Wrapper.m_CrateActionsCallbackInterface.OnExplode;
+                @Explode.performed -= m_Wrapper.m_CrateActionsCallbackInterface.OnExplode;
+                @Explode.canceled -= m_Wrapper.m_CrateActionsCallbackInterface.OnExplode;
+            }
+            m_Wrapper.m_CrateActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Explode.started += instance.OnExplode;
+                @Explode.performed += instance.OnExplode;
+                @Explode.canceled += instance.OnExplode;
+            }
+        }
+    }
+    public CrateActions @Crate => new CrateActions(this);
     public interface IPlayerInputActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -916,5 +980,9 @@ public partial class @GameInputActions : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnLiftUp(InputAction.CallbackContext context);
         void OnLiftDown(InputAction.CallbackContext context);
+    }
+    public interface ICrateActions
+    {
+        void OnExplode(InputAction.CallbackContext context);
     }
 }
