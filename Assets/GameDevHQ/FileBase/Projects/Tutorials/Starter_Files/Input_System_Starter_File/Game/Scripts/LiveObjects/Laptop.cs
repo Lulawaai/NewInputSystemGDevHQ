@@ -24,13 +24,15 @@ namespace Game.Scripts.LiveObjects
 		{
 			InteractableZone.onHoldStarted += InteractableZone_onHoldStarted;
 			InteractableZone.onHoldEnded += InteractableZone_onHoldEnded;
+			GameInputManager.OnEscPressedGeneral += QuitHacking;
+			GameInputManager.OnInteractableKeyE += SwitchCameras;
 		}
 
 		private void Update()
 		{
 			if (_hacked == true)
 			{
-				if (Keyboard.current.eKey.wasPressedThisFrame)
+				/*if (Keyboard.current.eKey.wasPressedThisFrame)
 				{
 					var previous = _activeCamera;
 					_activeCamera++;
@@ -42,14 +44,41 @@ namespace Game.Scripts.LiveObjects
 
 					_cameras[_activeCamera].Priority = 11;
 					_cameras[previous].Priority = 9;
-				}
+				}*/
 
-				if (Keyboard.current.escapeKey.wasPressedThisFrame)
+				/*if (Keyboard.current.escapeKey.wasPressedThisFrame)
 				{
 					_hacked = false;
 					onHackEnded?.Invoke();
 					ResetCameras();
-				}
+				}*/
+			}
+		}
+
+		private void SwitchCameras()
+		{
+			if (_hacked == true)
+			{
+				var previous = _activeCamera;
+				_activeCamera++;
+
+
+				if (_activeCamera >= _cameras.Length)
+					_activeCamera = 0;
+
+
+				_cameras[_activeCamera].Priority = 11;
+				_cameras[previous].Priority = 9;
+			}
+		}
+
+		private void QuitHacking()
+		{
+			if (_hacked == true)
+			{
+				_hacked = false;
+				onHackEnded?.Invoke();
+				ResetCameras();
 			}
 		}
 

@@ -27,6 +27,18 @@ namespace Game.Scripts.LiveObjects
 			GameInputManager.OnForkliftMove += Move;
 			GameInputManager.OnForkliftUp += LiftUPRoutineCall;
 			GameInputManager.OnForkliftDown += LiftDownRoutineCall;
+			GameInputManager.OnForkliftEsc += ExitDriveMode;
+		}
+
+		private void Update()
+		{
+			if (_inDriveMode == true)
+			{
+				//LiftControls();
+				CalcutateMovement();
+				if (Input.GetKeyDown(KeyCode.Escape))
+					ExitDriveMode();
+			}
 		}
 
 		private void EnterDriveMode(InteractableZone zone)
@@ -49,16 +61,6 @@ namespace Game.Scripts.LiveObjects
 			onDriveModeExited?.Invoke();
 		}
 
-		private void Update()
-		{
-			if (_inDriveMode == true)
-			{
-				//LiftControls();
-				CalcutateMovement();
-				if (Input.GetKeyDown(KeyCode.Escape))
-					ExitDriveMode();
-			}
-		}
 
 		private void Move(Vector2 move)
 		{
@@ -82,13 +84,13 @@ namespace Game.Scripts.LiveObjects
 			}
 		}
 
-		private void LiftControls()
+		/*private void LiftControls()
 		{
 			if (Input.GetKey(KeyCode.R))
 				LiftUpRoutine();
 			else if (Input.GetKey(KeyCode.T))
 				LiftDownRoutine();
-		}
+		}*/
 
 		private void LiftUPRoutineCall()
 		{
@@ -136,6 +138,7 @@ namespace Game.Scripts.LiveObjects
 			GameInputManager.OnForkliftMove -= Move;
 			GameInputManager.OnForkliftUp -= LiftUPRoutineCall;
 			GameInputManager.OnForkliftDown -= LiftDownRoutineCall;
+			GameInputManager.OnForkliftEsc += ExitDriveMode;
 		}
 	}
 }

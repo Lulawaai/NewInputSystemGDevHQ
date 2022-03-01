@@ -91,7 +91,6 @@ namespace Game.Scripts.LiveObjects
 					case ZoneType.Action:
 						if (_actionPerformed == false)
 						{
-							Debug.Log("InZone " + _currentZoneID);
 							_inZone = true;
 							if (_displayMessage != null)
 							{

@@ -13,6 +13,8 @@ public class GameInputManager : MonoBehaviour
 	public static event Action OnInteractableKeyE;
 	public static event Action OnHoldKey;
 	public static event Action OnHoldFinished;
+	public static event Action OnEscPressedGeneral;
+
 	//Drone
 	public static event Action<float> OnDroneRotation;
 	public static event Action OnSpaceKeyDronePressed;
@@ -24,16 +26,12 @@ public class GameInputManager : MonoBehaviour
 	//Forklift
 	public static event Action OnForkliftUp;
 	public static event Action OnForkliftDown;
+	public static event Action OnForkliftEsc;
 
 	//Crate
 	[SerializeField] private bool _crateExploded = false;
 	private int _tabOrHold;
 	[SerializeField] private Crate _crate;
-
-	private void OnEnable()
-	{
-		
-	}
 
 	void Start()
 	{
@@ -46,6 +44,7 @@ public class GameInputManager : MonoBehaviour
 		_input.General.Ekey.performed += InteractableArea_performed;
 		_input.General.Ekey.started += InteractableArea_started;
 		_input.General.Ekey.canceled += InteractableArea_canceled;
+		_input.General.Esckey.performed += Esckey_performed;
 
 		_input.PlayerInput.SwitchToDrone.performed += SwitchToDrone_performed;
 
@@ -57,6 +56,7 @@ public class GameInputManager : MonoBehaviour
 		_input.Forklift.SwitchToPlayer.performed += SwitchToPlayer_performed;
 		_input.Forklift.LiftUp.performed += LiftUp_performed;
 		_input.Forklift.LiftDown.performed += LiftDown_performed;
+		_input.Forklift.Esckey.performed += Esckey_performed1;
 
 		_input.Crate.Explode.performed += Explode_performed;
 		_input.Crate.Explode.canceled += Explode_canceled;
@@ -102,8 +102,14 @@ public class GameInputManager : MonoBehaviour
 		_input.PlayerInput.Enable();
 		_input.Drone.Disable();
 		_input.Forklift.Disable();
+		_input.General.Enable();
 
 		UIManager.Instance.SelectedInput(0);
+	}
+
+	private void Esckey_performed1(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		OnForkliftEsc?.Invoke();
 	}
 	#endregion
 
@@ -121,6 +127,7 @@ public class GameInputManager : MonoBehaviour
 	private void SwitchToForklift_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
 		_input.PlayerInput.Disable();
+		_input.General.Disable();
 		_input.Drone.Disable();
 		_input.Forklift.Enable();
 
@@ -137,6 +144,7 @@ public class GameInputManager : MonoBehaviour
 	private void SwitchToDrone_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
 		_input.PlayerInput.Disable();
+		_input.General.Disable();
 		_input.Drone.Enable();
 		_input.Forklift.Disable();
 
@@ -144,7 +152,12 @@ public class GameInputManager : MonoBehaviour
 	}
 	#endregion
 
-	#region //Interactable Area
+	#region //General
+	private void Esckey_performed(UnityEngine.InputSystem.InputAction.CallbackContext context)
+	{
+		OnEscPressedGeneral?.Invoke();
+	}
+
 	private void InteractableArea_started(UnityEngine.InputSystem.InputAction.CallbackContext context)
 	{
 		OnHoldKey?.Invoke();

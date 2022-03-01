@@ -137,8 +137,30 @@
                 },
                 {
                     "name": "",
+                    "id": "cdf7767c-762c-4c56-b60d-12960e419c7b",
+                    "path": "<Joystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "353b8e05-d118-4bb9-bbe8-78f832f4a38f",
                     "path": "<Keyboard>/n",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchToDrone",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e9d609c9-e09a-4d54-9ec4-af37951fec3f",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -176,7 +198,18 @@
                     "name": "",
                     "id": "2dc9fa6d-f1d6-4f14-8d6c-8f3f7f1fde34",
                     "path": "<Keyboard>/e",
-                    "interactions": "Hold(duration=10,pressPoint=1)",
+                    "interactions": "Hold(duration=10,pressPoint=1),Tap",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Ekey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a4a751a6-1d28-4164-8043-cf79ade09378",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Ekey",
@@ -186,8 +219,19 @@
                 {
                     "name": "",
                     "id": "85277c60-542a-416d-80c6-975ae1da0240",
-                    "path": "<Keyboard>/z",
+                    "path": "<Keyboard>/escape",
                     "interactions": "Hold(duration=10)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Esckey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "448ec33d-e747-47dc-b135-c133c1893160",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Esckey",
@@ -291,8 +335,30 @@
                 },
                 {
                     "name": "",
+                    "id": "6431f98c-ffcb-4c1a-9cb1-fa8124d45bcf",
+                    "path": "<Gamepad>/leftStick/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Rotation",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f7644a8d-1b21-4e62-bff3-749cfabaed0f",
                     "path": "<Keyboard>/n",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchToForklift",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b32c6f0d-b3d4-430b-8d56-cf310829535e",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -357,8 +423,30 @@
                 },
                 {
                     "name": "",
+                    "id": "5376b058-4e9d-46ba-b2d6-ed67436c6d81",
+                    "path": "<Joystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Tilt",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "3f5cead5-48b5-4cde-8917-176bbb25bc3f",
                     "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SpaceKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "cc231d61-774b-4a5a-87f4-459ed9a533ec",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -379,8 +467,30 @@
                 },
                 {
                     "name": "",
+                    "id": "fc37f399-6a96-4c60-bb6d-7f746c3b2e4b",
+                    "path": "<Gamepad>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9c9ad115-6ac0-4497-b55a-b7a1a85486f8",
                     "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "EscKey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "de55d743-95ff-4f0b-b81e-c5963986c393",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -429,6 +539,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Esckey",
+                    "type": "Button",
+                    "id": "9b6758f3-3c73-49e3-aa48-a740fa8645d8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -436,6 +555,17 @@
                     "name": "",
                     "id": "6413e9ba-0e0b-4600-9c25-eacbeea80f85",
                     "path": "<Keyboard>/n",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchToPlayer",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "04744a3d-62a4-493a-8d49-374dd5898243",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -555,8 +685,30 @@
                 },
                 {
                     "name": "",
+                    "id": "b4cc5b7d-2059-4178-b12b-5bbde315962a",
+                    "path": "<Joystick>/stick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "4a5318ea-e45e-4244-9e2f-99fea326274d",
                     "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LiftUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "618e40ca-2e0f-4000-8af3-6f7446b61d2c",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -572,6 +724,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "LiftDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1bbc64fc-2967-4202-9650-c29755ec667f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LiftDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15cc4a51-b695-46ba-97f2-a7b7616d8618",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "Hold(duration=10)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Esckey",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f418000d-d0d5-4115-a013-e586fdb5546a",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Esckey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -595,8 +780,19 @@
                 {
                     "name": "",
                     "id": "21739bb1-af39-4e93-b02a-63a876005dce",
-                    "path": "<Keyboard>/c",
+                    "path": "<Keyboard>/space",
                     "interactions": "MultiTap,Hold(duration=10)",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Explode",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "afc93601-5686-42f6-a582-1df8ec46f44f",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Explode",

@@ -31,9 +31,19 @@ namespace Game.Scripts.UI
 		[SerializeField] private GameObject _forkliftInpSelection;
 		[SerializeField] private int _inputSelected;
 
+		[Header("UIElements")]
+		[SerializeField] private Text _northKey_txt;
+		[SerializeField] private GameObject _xStick_GO;
+		[SerializeField] private Text _eastKey_txt;
+
 		private void Awake()
 		{
 			_instance = this;
+		}
+
+		private void Start()
+		{
+			_xStick_GO.SetActive(false);
 		}
 
 		public void SelectedInput(int selection)
@@ -46,18 +56,26 @@ namespace Game.Scripts.UI
 					_playerInpSelection.SetActive(true);
 					_droneInpSelection.SetActive(false);
 					_forkliftInpSelection.SetActive(false);
+					_northKey_txt.text = "E";
+					_eastKey_txt.text = "Escape";
+					_xStick_GO.SetActive(false);
 					break;
 
 				case 1:
 					_playerInpSelection.SetActive(false);
 					_droneInpSelection.SetActive(true);
 					_forkliftInpSelection.SetActive(false);
+					_northKey_txt.text = "V";
+					_xStick_GO.SetActive(true);
 					break;
 
 				case 2:
 					_playerInpSelection.SetActive(false);
 					_droneInpSelection.SetActive(false);
 					_forkliftInpSelection.SetActive(true);
+					_northKey_txt.text = "U";
+					_eastKey_txt.text = "Down";
+					_xStick_GO.SetActive(false);
 					break;
 			}
 		}
